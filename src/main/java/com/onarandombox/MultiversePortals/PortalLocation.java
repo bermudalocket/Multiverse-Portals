@@ -7,15 +7,14 @@
 
 package com.onarandombox.MultiversePortals;
 
+import com.onarandombox.MultiverseCore.api.MultiverseWorld;
+import com.onarandombox.MultiversePortals.utils.MultiverseRegion;
+import com.sk89q.worldedit.math.BlockVector3;
+import org.bukkit.util.Vector;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
-
-import org.bukkit.Location;
-import org.bukkit.util.Vector;
-
-import com.onarandombox.MultiverseCore.api.MultiverseWorld;
-import com.onarandombox.MultiversePortals.utils.MultiverseRegion;
 
 public class PortalLocation {
 
@@ -36,7 +35,7 @@ public class PortalLocation {
      * @param minPt
      * @param maxPt
      */
-    public PortalLocation(com.sk89q.worldedit.Vector minPt, com.sk89q.worldedit.Vector maxPt, MultiverseWorld world) {
+    public PortalLocation(BlockVector3 minPt, BlockVector3 maxPt, MultiverseWorld world) {
         this(new Vector(minPt.getX(), minPt.getY(), minPt.getZ()), new Vector(maxPt.getX(), maxPt.getY(), maxPt.getZ()), world);
     }
 

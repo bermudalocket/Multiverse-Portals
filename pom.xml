@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.onarandombox.multiverseportals</groupId>
     <artifactId>Multiverse-Portals</artifactId>
-    <version>2.5.2-SNAPSHOT</version>
+    <version>2.5.3-SNAPSHOT</version>
     <name>Multiverse-Portals</name>
     <description>Multiverse Portals module</description>
     <properties>
@@ -175,12 +175,6 @@
             <version>7.0.0-SNAPSHOT</version>
             <type>jar</type>
             <scope>provided</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.bukkit</groupId>
-                    <artifactId>bukkit</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <!-- End of WorldEdit Dependency -->
 
@@ -191,12 +185,6 @@
             <version>1.0.9</version>
             <type>jar</type>
             <scope>compile</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.bukkit</groupId>
-                    <artifactId>craftbukkit</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <!-- End of Logging Dependency -->
 

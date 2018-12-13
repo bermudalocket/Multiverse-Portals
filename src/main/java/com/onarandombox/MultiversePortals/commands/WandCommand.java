@@ -7,15 +7,14 @@
 
 package com.onarandombox.MultiversePortals.commands;
 
-import java.util.List;
-
+import com.onarandombox.MultiversePortals.MultiversePortals;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.permissions.PermissionDefault;
 
-import com.onarandombox.MultiversePortals.MultiversePortals;
+import java.util.List;
 
 public class WandCommand extends PortalCommand {
 
@@ -55,11 +54,10 @@ public class WandCommand extends PortalCommand {
                 p.sendMessage("Just use " + ChatColor.GOLD + "the WorldEdit wand " + ChatColor.WHITE + "to perform portal selections!");
                 return;
             }
-            int itemType = this.plugin.getMainConfig().getInt("wand", MultiversePortals.DEFAULT_WAND);
-            ItemStack wand = new ItemStack(itemType, 1);
+            ItemStack wand = this.plugin.getWand();
 
-            if (p.getItemInHand().getAmount() == 0) {
-                p.setItemInHand(wand);
+            if (p.getInventory().getItemInMainHand().getAmount() == 0) {
+                p.getInventory().setItemInMainHand(wand);
                 p.sendMessage("You have been given a " + ChatColor.GREEN + "Multiverse Portal Wand(" + wand.getType() + ")!");
             } else {
                 if (p.getInventory().addItem(wand).isEmpty()) {

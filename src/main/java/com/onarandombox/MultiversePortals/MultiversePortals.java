@@ -7,40 +7,7 @@
 
 package com.onarandombox.MultiversePortals;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import com.dumptruckman.minecraft.util.Logging;
-import com.onarandombox.MultiversePortals.listeners.MVPPlayerMoveListener;
-import com.onarandombox.MultiversePortals.listeners.PlayerListenerHelper;
-import com.sk89q.worldedit.WorldEdit;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.Configuration;
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
-import org.bukkit.event.server.PluginDisableEvent;
-import org.bukkit.event.server.PluginEnableEvent;
-import org.bukkit.permissions.Permission;
-import org.bukkit.plugin.Plugin;
-import org.bukkit.plugin.PluginManager;
-import org.bukkit.plugin.java.JavaPlugin;
-
 import com.onarandombox.MultiverseCore.MultiverseCore;
 import com.onarandombox.MultiverseCore.api.MVPlugin;
 import com.onarandombox.MultiverseCore.commands.HelpCommand;
@@ -60,10 +27,44 @@ import com.onarandombox.MultiversePortals.enums.PortalConfigProperty;
 import com.onarandombox.MultiversePortals.listeners.MVPBlockListener;
 import com.onarandombox.MultiversePortals.listeners.MVPCoreListener;
 import com.onarandombox.MultiversePortals.listeners.MVPPlayerListener;
+import com.onarandombox.MultiversePortals.listeners.MVPPlayerMoveListener;
 import com.onarandombox.MultiversePortals.listeners.MVPPluginListener;
 import com.onarandombox.MultiversePortals.listeners.MVPVehicleListener;
+import com.onarandombox.MultiversePortals.listeners.PlayerListenerHelper;
 import com.onarandombox.MultiversePortals.utils.PortalManager;
 import com.pneumaticraft.commandhandler.multiverse.CommandHandler;
+import com.sk89q.worldedit.WorldEdit;
+import org.bukkit.Material;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.Configuration;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.server.PluginDisableEvent;
+import org.bukkit.event.server.PluginEnableEvent;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.permissions.Permission;
+import org.bukkit.plugin.Plugin;
+import org.bukkit.plugin.PluginManager;
+import org.bukkit.plugin.java.JavaPlugin;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class MultiversePortals extends JavaPlugin implements MVPlugin {
 
@@ -81,7 +82,7 @@ public class MultiversePortals extends JavaPlugin implements MVPlugin {
     private PortalManager portalManager;
     private Map<String, PortalPlayerSession> portalSessions;
 
-    public static final int DEFAULT_WAND = 271;
+    public static final Material DEFAULT_WAND = Material.WOOD_AXE;
     private long portalCooldown = 0;
     private final static int requiresProtocol = 19;
     public static boolean UseOnMove = true;
@@ -162,6 +163,26 @@ public class MultiversePortals extends JavaPlugin implements MVPlugin {
             pm.registerEvents(new MVPPlayerMoveListener(this, playerListenerHelper), this);
         }
         pm.registerEvents(coreListener, this);
+    }
+
+    /**
+     * Returns the configured (or default) wand as an ItemStack.
+     *
+     * @return the configured (or default) wand as an ItemStack.
+     */
+    public ItemStack getWand() {
+        String itemType = getMainConfig().getString("wand");
+        Material wandMaterial;
+        if (itemType != null) {
+            try {
+                wandMaterial = Material.valueOf(itemType);
+            } catch (Exception e) {
+                wandMaterial = MultiversePortals.DEFAULT_WAND;
+            }
+        } else {
+            wandMaterial = MultiversePortals.DEFAULT_WAND;
+        }
+        return new ItemStack(wandMaterial, 1);
     }
 
     /**

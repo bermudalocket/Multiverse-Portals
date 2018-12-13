@@ -7,16 +7,15 @@
 
 package com.onarandombox.MultiversePortals.commands;
 
-import java.util.List;
-
+import com.onarandombox.MultiversePortals.MVPortal;
+import com.onarandombox.MultiversePortals.MultiversePortals;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.permissions.PermissionDefault;
 
-import com.onarandombox.MultiversePortals.MVPortal;
-import com.onarandombox.MultiversePortals.MultiversePortals;
+import java.util.List;
 
 public class SelectCommand extends PortalCommand {
 
@@ -46,7 +45,7 @@ public class SelectCommand extends PortalCommand {
             MVPortal selected = this.plugin.getPortalSession(p).getSelectedPortal();
             if (this.plugin.getPortalSession(p).getSelectedPortal() == null) {
                 p.sendMessage("You have not selected a portal yet!");
-                ItemStack wand = new ItemStack(this.plugin.getMainConfig().getInt("wand", MultiversePortals.DEFAULT_WAND));
+                ItemStack wand = this.plugin.getWand();
                 p.sendMessage("Use a " + ChatColor.GREEN + wand.getType() + ChatColor.WHITE + " to do so!");
                 return;
             }

@@ -7,6 +7,7 @@
 
 package com.onarandombox.MultiversePortals.utils;
 
+import com.sk89q.worldedit.math.BlockVector3;
 import org.bukkit.Location;
 import org.bukkit.util.Vector;
 
@@ -25,9 +26,9 @@ public class MultiverseRegion {
 
     public MultiverseRegion(Object pos1, Object pos2, MultiverseWorld w) {
         // Creating soft dependencies on WE
-        if (pos1 instanceof com.sk89q.worldedit.Vector && pos2 instanceof com.sk89q.worldedit.Vector) {
-            com.sk89q.worldedit.Vector weV1 = (com.sk89q.worldedit.Vector) pos1;
-            com.sk89q.worldedit.Vector weV2 = (com.sk89q.worldedit.Vector) pos2;
+        if (pos1 instanceof BlockVector3 && pos2 instanceof BlockVector3) {
+            BlockVector3 weV1 = (BlockVector3) pos1;
+            BlockVector3 weV2 = (BlockVector3) pos2;
             Vector tmp1 = new Vector(weV1.getX(), weV1.getY(), weV1.getZ());
             Vector tmp2 = new Vector(weV2.getX(), weV2.getY(), weV2.getZ());
             this.min = Vector.getMinimum(tmp1, tmp2);
